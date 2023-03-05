@@ -1,4 +1,4 @@
-package edu.mui.noti.summary
+package edu.mui.noti.noti
 
 import android.Manifest
 import android.app.AppOpsManager
@@ -17,8 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import edu.mui.noti.summary.service.NotiListenerService
-import edu.mui.noti.summary.ui.theme.NotisummaryTheme
+import edu.mui.noti.noti.service.NotiListenerService
+import edu.mui.noti.noti.ui.theme.NotiappTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
-            NotisummaryTheme {
+            NotiappTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -79,7 +79,7 @@ fun Greeting(name: String) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    NotisummaryTheme {
+    NotiappTheme {
         Greeting("Android")
     }
 }

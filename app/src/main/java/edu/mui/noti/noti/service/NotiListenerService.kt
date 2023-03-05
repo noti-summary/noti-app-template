@@ -1,4 +1,4 @@
-package edu.mui.noti.summary.service
+package edu.mui.noti.noti.service
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -8,7 +8,7 @@ import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import edu.mui.noti.summary.util.TAG
+import edu.mui.noti.noti.util.TAG
 
 class NotiListenerService: NotificationListenerService() {
     override fun onCreate() {

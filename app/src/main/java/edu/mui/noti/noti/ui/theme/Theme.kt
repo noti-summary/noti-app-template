@@ -1,4 +1,4 @@
-package edu.mui.noti.summary.ui.theme
+package edu.mui.noti.noti.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -38,7 +38,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun NotisummaryTheme(
+fun NotiappTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,

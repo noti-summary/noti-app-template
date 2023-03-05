@@ -1,4 +1,4 @@
-package edu.mui.noti.summary
+package edu.mui.noti.noti
 
 import org.junit.Test
 

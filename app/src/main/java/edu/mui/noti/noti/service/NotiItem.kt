@@ -1,4 +1,4 @@
-package edu.mui.noti.summary.service
+package edu.mui.noti.noti.service
 
 import android.app.Notification
 import android.app.Notification.*
@@ -7,7 +7,7 @@ import android.content.pm.ApplicationInfo
 import android.service.notification.StatusBarNotification
 import android.util.Log
 import com.google.android.gms.common.wrappers.Wrappers.packageManager
-import edu.mui.noti.summary.util.TAG
+import edu.mui.noti.noti.util.TAG
 import java.util.*
 
 class NotiItem(context: Context,

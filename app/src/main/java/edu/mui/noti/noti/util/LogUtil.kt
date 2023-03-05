@@ -1,4 +1,4 @@
-package edu.mui.noti.summary.util
+package edu.mui.noti.noti.util
 
 // import this package, and can directly use TAG in Log function
 val Any.TAG: String
