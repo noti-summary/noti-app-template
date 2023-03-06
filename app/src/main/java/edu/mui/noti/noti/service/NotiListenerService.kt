@@ -8,7 +8,10 @@ import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
+import edu.mui.noti.noti.database.room.CurrentDrawerDatabase
 import edu.mui.noti.noti.util.TAG
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class NotiListenerService: NotificationListenerService() {
     override fun onCreate() {
@@ -74,6 +77,15 @@ class NotiListenerService: NotificationListenerService() {
                 return
 
             notiItem.logProperty()
+            val currentDrawerDao = CurrentDrawerDatabase.getInstance(applicationContext).currentDrawerDao()
+            val drawerNoti = notiItem.makeDrawerNoti()
+            GlobalScope.launch {
+                if (drawerNoti.sortKey != "null")
+                    currentDrawerDao.deleteByPackageSortKey(drawerNoti.packageName, drawerNoti.groupKey, drawerNoti.sortKey)
+                currentDrawerDao.insert(drawerNoti)
+                Log.d(TAG, "insert drawerNoti")
+                notiItem.logProperty()
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }

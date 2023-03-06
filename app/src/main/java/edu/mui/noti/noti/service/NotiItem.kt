@@ -3,10 +3,9 @@ package edu.mui.noti.noti.service
 import android.app.Notification
 import android.app.Notification.*
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import com.google.android.gms.common.wrappers.Wrappers.packageManager
+import edu.mui.noti.noti.model.CurrentDrawer
 import edu.mui.noti.noti.util.TAG
 import java.util.*
 
@@ -56,19 +55,21 @@ class NotiItem(context: Context,
 
         this.sbnId = sbn?.id
 
-        val applicationInfo: ApplicationInfo? =
-            sbn?.packageName?.let {
-                packageManager(context.applicationContext).getApplicationInfo(it, 0)
-            }
-
-        this.appName = (if (applicationInfo != null) {
-            val s = packageManager(context.applicationContext).getApplicationLabel(
-                sbn.packageName!!
-            ).toString()
-            s
-        } else {
-            this.packageName
-        })
+//        val pm = context.packageManager
+//        val applicationInfo: ApplicationInfo? =
+//            sbn?.packageName?.let {
+//                if (Build.VERSION.SDK_INT >= TIRAMISU) {
+//                    pm.getApplicationInfo(it, PackageManager.ApplicationInfoFlags.of(0))
+//                } else {
+//                    pm.getApplicationInfo(it, 0)
+//                }
+//            }
+//
+//        this.appName = (if (applicationInfo != null) {
+//            pm.getApplicationLabel(applicationInfo).toString()
+//        } else {
+//            this.packageName
+//        })
     }
 
     fun logProperty() {
@@ -78,7 +79,7 @@ class NotiItem(context: Context,
         Log.d(TAG, "notificationId=${this.notificationId}")
         Log.d(TAG, "postTime=${this.unixTime}")
 
-        Log.d(TAG, "appName=${this.appName}")
+//        Log.d(TAG, "appName=${this.appName}")
         Log.d(TAG, "title=${this.title}")
         Log.d(TAG, "content=${this.content}")
         Log.d(TAG, "category=${this.category}")
@@ -95,7 +96,7 @@ class NotiItem(context: Context,
         return flags
     }
 
-    fun getPackageName(): String? {
+    fun getPackageName(): String {
         return packageName
     }
 
@@ -103,12 +104,27 @@ class NotiItem(context: Context,
         return sbnId
     }
 
-    fun getTitle(): String? {
+    fun getTitle(): String {
         return title
     }
 
-    fun getContent(): String? {
+    fun getContent(): String {
         return content
     }
 
+    fun makeDrawerNoti(): CurrentDrawer {
+        return this.postTime?.let {
+            CurrentDrawer(
+                0,
+                this.notificationId,
+                this.packageName,
+                this.key,
+                this.sortKey,
+                "app_name",
+                this.title,
+                this.content,
+                it
+            )
+        }!!
+    }
 }
