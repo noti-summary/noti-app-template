@@ -3,6 +3,10 @@ package edu.mui.noti.noti.service
 import android.app.Notification
 import android.app.Notification.*
 import android.content.Context
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Build.VERSION_CODES.TIRAMISU
 import android.service.notification.StatusBarNotification
 import android.util.Log
 import edu.mui.noti.noti.model.CurrentDrawer
@@ -55,21 +59,21 @@ class NotiItem(context: Context,
 
         this.sbnId = sbn?.id
 
-//        val pm = context.packageManager
-//        val applicationInfo: ApplicationInfo? =
-//            sbn?.packageName?.let {
-//                if (Build.VERSION.SDK_INT >= TIRAMISU) {
-//                    pm.getApplicationInfo(it, PackageManager.ApplicationInfoFlags.of(0))
-//                } else {
-//                    pm.getApplicationInfo(it, 0)
-//                }
-//            }
-//
-//        this.appName = (if (applicationInfo != null) {
-//            pm.getApplicationLabel(applicationInfo).toString()
-//        } else {
-//            this.packageName
-//        })
+        val pm = context.packageManager
+        val applicationInfo: ApplicationInfo? =
+            sbn?.packageName?.let {
+                if (Build.VERSION.SDK_INT >= TIRAMISU) {
+                    pm.getApplicationInfo(it, PackageManager.ApplicationInfoFlags.of(0))
+                } else {
+                    pm.getApplicationInfo(it, 0)
+                }
+            }
+
+        this.appName = (if (applicationInfo != null) {
+            pm.getApplicationLabel(applicationInfo).toString()
+        } else {
+            this.packageName
+        })
     }
 
     fun logProperty() {
@@ -79,7 +83,7 @@ class NotiItem(context: Context,
         Log.d(TAG, "notificationId=${this.notificationId}")
         Log.d(TAG, "postTime=${this.unixTime}")
 
-//        Log.d(TAG, "appName=${this.appName}")
+        Log.d(TAG, "appName=${this.appName}")
         Log.d(TAG, "title=${this.title}")
         Log.d(TAG, "content=${this.content}")
         Log.d(TAG, "category=${this.category}")
